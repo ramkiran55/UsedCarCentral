@@ -22,10 +22,11 @@ connection_url = ""
 #)
 
 def connection_uri():
+    # sqlcmd -S adt-project-server.database.windows.net -d UsedCarCentral -U adtstudent -P R00tR00t
     s = 'adt-project-server.database.windows.net' #Your server name 
-    d = 'temp-DB' 
-    u = 'adtstudent' #Your login
-    p = 'R00tR00t' #Your login password
+    d = 'UsedCarCentral' 
+    u = 'adtstudent'
+    p = 'R00tR00t'
     cstr = 'DRIVER={SQL Server};SERVER='+s+';DATABASE='+d+';UID='+u+';PWD='+ p
     conn = pyodbc.connect(cstr)
     return conn

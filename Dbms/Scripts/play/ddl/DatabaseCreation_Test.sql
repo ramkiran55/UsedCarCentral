@@ -81,7 +81,7 @@ GO
 
 -- import the file
 BULK INSERT test.UsedCarsStagingData -- Ram Kiran Devireddy (radevir)
-FROM 'D:\IUB\ADT\1_Project_SRR\Dataset\RawData\UsedCars.csv'
+FROM 'D:\IUB\ADT\1_Project_SRR\try\UsedCarCentral\Dbms\Scripts\play\ddl\dataset\UsedCars.csv'
 WITH
 (
     FORMAT = 'CSV',
