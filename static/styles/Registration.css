@@ -1,0 +1,162 @@
+/* Global styles */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-image: url('../img/loginimage.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #f00b42; 
+    color: #fff; 
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: rgb(255, 255, 255); 
+  }
+  
+  /* Header styles */
+  
+  header {
+    background-color: rgba(0,0,0,0.6); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+    color: #fff; 
+  }
+  
+  header nav {
+    display: flex;
+  }
+  
+  header nav a {
+    margin-left: 20px;
+  }
+
+  /* Registration page styles */
+
+.registration-box {
+    margin: 50px auto;
+    max-width: 400px;
+    max-height: 600px;
+    background-color: rgba(0,0,0,0.6);; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    color: rgb(255, 255, 255); 
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+  }
+  
+  .registration-box h2 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255); 
+  }
+  .alert{
+    font-weight: bold;
+    text-align: center !important;
+  }
+  
+  .registration-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color:rgb(255, 255, 255);
+  }
+  
+  .registration-box input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .registration-box button[type="submit"] {
+    background-color: #0077cc;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .registration-box button[type="submit"]:hover {
+    background-color: #005fa3;
+  }
+  
+  /* Applying a blur effect to the background image */
+body:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../img/loginimage.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: blur(5px);
+    z-index: -1;
+  }
+
+  input.invalid {
+    border-color: red;
+  }
+  
+  .validation-message {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+  
+  
+ /* Footer styles */
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #001d58; 
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  footer a {
+    color: #0077cc;
+  }
+  

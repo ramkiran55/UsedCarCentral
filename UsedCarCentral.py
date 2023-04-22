@@ -35,12 +35,12 @@ def login():
         print(email,password)
         user =User.get_by_email(email)
         print(email,password)
-        print(user)
+        
         if user and User.check_password(user,password):
             login_user(user)
             return redirect(url_for('home'))
         else:
-            return render_template('login.html', error='Invalid username or password')
+            return render_template('login.html', error='Invalid username or password !')
     else:
         return render_template('login.html')
 
@@ -50,18 +50,27 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@UsedCarCentral.route('/')
+@UsedCarCentral.route('/home')
 @login_required
 def home():
     return render_template('home.html', user=current_user)
 
+@UsedCarCentral.route('/landing')
+@UsedCarCentral.route('/')
+def landing():
+    return render_template('landing.html')
+
 @UsedCarCentral.route('/register', methods=['GET', 'POST'])
 def register():
+
+    print(request.method)
     if request.method == 'POST':
+        print("inPost")
         name = request.form.get('name')
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        print(name,email,password)
         if password != confirm_password:
             return render_template('register.html', error='Passwords do not match')
         if User.get_by_email(email):
@@ -73,6 +82,7 @@ def register():
         login_user(user)
         return redirect(url_for('home'))
     else:
+        print("inGet")
         return render_template('register.html')
 
 # @UsedCarCentral.route("/")
