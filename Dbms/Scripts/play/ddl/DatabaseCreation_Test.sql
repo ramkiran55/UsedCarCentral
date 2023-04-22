@@ -5,8 +5,8 @@ USE UsedCarCentral;
 -- We'll be maintaining two schemas in this project. One will be to test our SQL code and the second one will be our main schema
 
 -- Create schema named test
-CREATE SCHEMA test -- -- Syam Prajwal Kammula (skammul)
-GO
+CREATE SCHEMA test
+GO -- -- Syam Prajwal Kammula (skammul)
 -- Create schema real
 CREATE SCHEMA real
 GO
