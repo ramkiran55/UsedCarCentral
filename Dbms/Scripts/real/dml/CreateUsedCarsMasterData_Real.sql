@@ -33,8 +33,10 @@ AS
 BEGIN
     BEGIN TRY
         SET NOCOUNT ON;
-
-        SELECT MAX(MasterID) AS id FROM real.UsedCarsMasterData;
+        SET @out = 0;
+        DECLARE @id INT;
+        DECLARE @newId INT;
+        SELECT @id = MAX(MasterID) FROM real.UsedCarsMasterData;
 
         INSERT INTO real.UsedCarsMasterData (
             ListingURL, 
@@ -88,16 +90,17 @@ BEGIN
             @PostedDate
         );
 
-        SELECT MAX(MasterID) AS newId FROM real.UsedCarsMasterData;
+        SELECT @newId = MAX(MasterID) FROM real.UsedCarsMasterData;
 
-        IF newId = id
+        IF @newId = @id
         BEGIN
             set @out = 1; --- insertion is not successfull 
+            SET NOCOUNT OFF;
             ROLLBACK;
             RETURN @out;
         END
-        EXEC @out = CreateCarsMasterData 
-            @MasterID = newId
+        EXEC @out = real.CreateCarsMasterData 
+            @MasterID = @newId
             , @Manufacturer = @Manufacturer
             , @ModelYear = @ModelYear
             , @CylinderCount = @CylinderCount
@@ -108,21 +111,31 @@ BEGIN
             , @CarColor = @CarColor
             , @VehicleIdentificationNum = @VehicleIdentificationNum
             , @DriveType = @DriveType
-            
+            , @CarCondition = @CarCondition
+            , @OdometerReading = @OdometerReading
+            , @CarStatus = @CarStatus
+            , @ImageURL = @ImageURL
+            , @CarDescription = @CarDescription
+            , @City = @City
+            , @StateCode = @StateCode
+            , @Latitude = @Latitude
+            , @Longitude = @Longitude
+            , @CraigsCityURL = @CraigsCityURL
         IF @out = 1
         BEGIN
+            SET NOCOUNT OFF;
             ROLLBACK;
             RETURN @out;
-        END        
-        SET @out = 0;
-        SET NOCOUNT OFF;
+        END
 
-        RETURN @out;
+        SET NOCOUNT OFF;
         COMMIT;
+        RETURN @out;
     END TRY
 
     BEGIN CATCH
         SET @out = 1;
+        SET NOCOUNT OFF;
         ROLLBACK;
         RETURN @out;
     END CATCH
