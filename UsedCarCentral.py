@@ -1,30 +1,102 @@
 import pyodbc
+import os
 from flask import Flask, render_template
 from connection import connection_uri
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from models import db_models
+from models.User import User
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
+
 UsedCarCentral = Flask(__name__)
 
-@UsedCarCentral.route("/")
-def main():
-    car_listings = []
-    con = connection_uri()
-    cursor = con.cursor()
-    cursor.execute("SELECT TOP (5) * FROM real.CarListings")
-    for row in cursor.fetchall():
-        #print(row) 
-        car_listings.append(
-                                {
-                                    "id": row[0]
-                                    , "ListingID": row[1]
-                                    , "CarID": row[2]
-                                    , "LocationID": row[3]
-                                    , "Price": row[4]
-                                    , "PostedDate": row[5]
-                                    , "ListingURL": row[6] 
-                                }
-                            )
-    return render_template("CarsList.html", car_listings = car_listings)
+# User session management setup
+# https://flask-login.readthedocs.io/en/latest
+login_manager = LoginManager()
+login_manager.init_app(UsedCarCentral)
+UsedCarCentral.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Load user from database
+    return User.get_by_id(user_id)
+
+@UsedCarCentral.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        print(email,password)
+        user =User.get_by_email(email)
+        print(email,password)
+        print(user)
+        if user and User.check_password(user,password):
+            login_user(user)
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    else:
+        return render_template('login.html')
+
+@UsedCarCentral.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+@UsedCarCentral.route('/')
+@login_required
+def home():
+    return render_template('home.html', user=current_user)
+
+@UsedCarCentral.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        if password != confirm_password:
+            return render_template('register.html', error='Passwords do not match')
+        if User.get_by_email(email):
+            return render_template('register.html', error='Username already taken')
+        # user = User(name=name, password=password, email=email)
+        # print(user)
+        print('gng to register')
+        user=User.register(name,email,password)
+        login_user(user)
+        return redirect(url_for('home'))
+    else:
+        return render_template('register.html')
+
+# @UsedCarCentral.route("/")
+# def main():
+#     # car_listings = []
+#     # con = connection_uri()
+#     # cursor = con.cursor()
+#     # cursor.execute("SELECT TOP (5) * FROM real.CarListings")
+#     # for row in cursor.fetchall():
+#     #     #print(row) 
+#     #     car_listings.append(
+#     #                             {
+#     #                                 "id": row[0]
+#     #                                 , "ListingID": row[1]
+#     #                                 , "CarID": row[2]
+#     #                                 , "LocationID": row[3]
+#     #                                 , "Price": row[4]
+#     #                                 , "PostedDate": row[5]
+#     #                                 , "ListingURL": row[6] 
+#     #                             }
+#     #                         )
+#     # return render_template("CarsList.html", car_listings = car_listings)
+
+#     return render_template("index.html")
 
 car_listing_data = {}
 @UsedCarCentral.route("/addcarlisting", methods = ['GET', 'POST'])
