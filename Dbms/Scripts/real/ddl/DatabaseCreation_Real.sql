@@ -222,3 +222,12 @@ FROM real.UsedCarsMasterData ucmd
 INNER JOIN real.CarsMasterData c ON ucmd.MasterID = c.MasterID
 INNER JOIN real.Locations l ON ucmd.MasterID = l.MasterID
 INNER JOIN real.CarListings cl ON ucmd.MasterID = cl.MasterID;
+
+-- Users table creation
+create table real.users(
+user_id int identity,
+user_name nvarchar(max),
+user_email nvarchar(max),
+user_password nvarchar(max)
+)
+
