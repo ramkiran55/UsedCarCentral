@@ -1,7 +1,7 @@
 USE UsedCarCentral
 GO
 
-CREATE PROCEDURE real.CreateCarsMasterData 
+CREATE PROCEDURE real.CreateUsedCarsMasterData 
     (
         @ListingURL NVARCHAR(500),
         @City NVARCHAR(50),
@@ -27,12 +27,14 @@ CREATE PROCEDURE real.CreateCarsMasterData
         @Latitude FLOAT,
         @Longitude FLOAT,
         @PostedDate DATETIME,
-        @out INT OUTPUT
+        @out0 INT OUTPUT
     )
 AS
 BEGIN
     BEGIN TRY
         SET NOCOUNT ON;
+
+        SELECT MAX(MasterID) AS id FROM real.UsedCarsMasterData;
 
         INSERT INTO real.UsedCarsMasterData (
             ListingURL, 
@@ -86,11 +88,42 @@ BEGIN
             @PostedDate
         );
 
+        SELECT MAX(MasterID) AS newId FROM real.UsedCarsMasterData;
+
+        IF newId = id
+        BEGIN
+            set @out = 1; --- insertion is not successfull 
+            ROLLBACK;
+            RETURN @out;
+        END
+        EXEC @out = CreateCarsMasterData 
+            @MasterID = newId
+            , @Manufacturer = @Manufacturer
+            , @ModelYear = @ModelYear
+            , @CylinderCount = @CylinderCount
+            , @FuelType = @FuelType
+            , @TransmissionType = @TransmissionType
+            , @CarSize = @CarSize
+            , @CarBodyType =  @CarBodyType
+            , @CarColor = @CarColor
+            , @VehicleIdentificationNum = @VehicleIdentificationNum
+            , @DriveType = @DriveType
+            
+        IF @out = 1
+        BEGIN
+            ROLLBACK;
+            RETURN @out;
+        END        
         SET @out = 0;
         SET NOCOUNT OFF;
+
+        RETURN @out;
+        COMMIT;
     END TRY
 
     BEGIN CATCH
         SET @out = 1;
+        ROLLBACK;
+        RETURN @out;
     END CATCH
 END
