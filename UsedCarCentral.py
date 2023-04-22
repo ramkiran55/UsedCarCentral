@@ -2,7 +2,7 @@ import pyodbc
 from flask import Flask, render_template
 from connection import connection_uri
 from flask import Flask, render_template, request, redirect
-
+from models import db_models
 UsedCarCentral = Flask(__name__)
 
 @UsedCarCentral.route("/")
@@ -89,7 +89,8 @@ def addLocationDetails():
         car_listing_data["latitude"] = float(request.form["latitude"])
         car_listing_data["logitude"] = float(request.form["logitude"])
         car_listing_data["craigsCityUrl"] = str(request.form["craigsCityUrl"])
-        print(car_listing_data)
+        # print(car_listing_data)
+        db_models.insertCarListing(car_listing_data)
         return redirect('/')
     
 if __name__ == "__main__":
