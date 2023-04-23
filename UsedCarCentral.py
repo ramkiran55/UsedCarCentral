@@ -53,7 +53,8 @@ def logout():
 @UsedCarCentral.route('/home')
 @login_required
 def home():
-    return render_template('home.html', user=current_user)
+    return render_template('prelisting.html', user=current_user)
+
 
 @UsedCarCentral.route('/landing')
 @UsedCarCentral.route('/')
@@ -116,7 +117,7 @@ def getcarlistings():
 #     return render_template("index.html")
 
 @UsedCarCentral.route("/getmycarlistings")
-def getUserCarListings():
+def getmycarlistings():
     my_car_listings = []
     user = None
     try:
