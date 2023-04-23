@@ -3,32 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <title>Pre Listing - Used Car Central</title>
-    <link rel="stylesheet" href="prelisting.css" />
+    <link rel="stylesheet" href="../static/styles/prelisting.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
   <body>
     <header>
-      <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central</h1>
+      <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central <strong> - Home </strong></h1>
       <nav>
         <a href="{{ url_for('getmycarlistings') }}"><strong>My Listings</strong></a>
+<<<<<<< HEAD
         <a href="{{ url_for('getCarListings') }}"><strong>Listing</strong></a>
         <a href="#">Logout</a>
+=======
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listing</strong></a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+>>>>>>> 541d137fc1eb218f58f0fa77f161ef9c00188031
       </nav>
     </header>
     
     <div class="prelisting-box">
-      <h2>Pre Listing</h2>
-      <p><Strong>Welcome to Used Car Rentals </Strong></p>
-      <p><Strong> This is a PreListing Portal : </Strong></p>
+      <p><Strong>Greetings {{ user.name }}! </Strong></p>
+      <p><Strong>Welcome to Used Car Central </Strong></p>
       <p> This portal helps you to navigate between your Custom Listings and the Available Listings.</p>
-      <p> We are here to help you find the best deals to take home your new buddy and best value for your old ones !.</p>
+      <p> We are here to help you find the best deals to take home your new buddy and best value for your old ones !</p>
       <p> Navigate to <strong>"Listings"</strong> tab to select your desired car and make it yours, our platform helps Buyers and Sellers connect through crystal transperency.</p>
       <p> Navigate to <strong>"My Listings"</strong> tab to review your listings, there you can <strong>'ADD, DELETE and UPDATE'</strong> your Car Details and get that reflected on our Market in no time.</p>
     </div>
 
     <footer>
-      <p>Contact us:<br />usedcarcentral@gmail.com<br />phone: +1 812 8XX XXX</p>
-      <a href="#">Privacy Policy</a>
+      <p>Contact us</p>
+      <p>Email: usedcarcentral@gmail.com</p>
+      <p>Phone: +1 812 8XX XXX</p>
     </footer>
   </body>
 </html>

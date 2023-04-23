@@ -55,7 +55,8 @@ def logout():
 @UsedCarCentral.route('/home')
 @login_required
 def home():
-    return render_template('home.html', user=current_user)
+    return render_template('prelisting.html', user=current_user)
+
 
 @UsedCarCentral.route('/landing')
 @UsedCarCentral.route('/')
@@ -88,7 +89,7 @@ def register():
         return render_template('register.html')
 
 @UsedCarCentral.route("/getcarlistings")
-def getCarListings():
+def getcarlistings():
     car_listings = []
     con = connection_uri()
     cursor = con.cursor()

@@ -6,7 +6,7 @@ html, body {
   }
   
   body {
-    background-image: url("loginimage.png");
+    background-image: url("../img/loginimage.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -135,7 +135,7 @@ body:before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("loginimage.png");
+    background-image: url("../img/loginimage.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

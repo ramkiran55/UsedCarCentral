@@ -37,31 +37,31 @@
     </header>
     
     <div class="registration-box">
-      <h2>Register</h2>
+      <h2 class="alert">Register</h2>
       {% if error %}
       <div class="alert">{{ error }}</div>
       {% endif %}
       <form id="registration-form" method="post">
         <div class="form-group">
-          <label for="name">User Name:</label>
+          <label for="name">User Name</label>
           <input type="text" id="name" name="name" placeholder="Enter your username" required />
         </div>
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Enter your email" required />
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
+          <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="Enter your password" required />
           <div id="password-feedback" class="validation-message"></div>
         </div>
         <div class="form-group">
-          <label for="confirm_password">Confirm Password:</label>
+          <label for="confirm_password">Confirm Password</label>
           <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-Enter your password" required>
         </div>
         <button type="submit" >Register</button>
       </form>
-      <p>Already a user? <a href="{{ url_for('login') }}">Login Here</a></p>
+      <p>Already a user? <a href="{{ url_for('login') }}"><u>Login Here</u></a></p>
     </div>
 
     <footer>
