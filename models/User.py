@@ -51,6 +51,7 @@ class User(UserMixin):
         con = connection_uri()
         cursor = con.cursor()
         print(name,email,password,generate_password_hash(password))
+        print(generate_password_hash('root'))
         # cursor.execute("EXEC Create_New_User @uname=?, @email=?, @pass=?", (name,email,generate_password_hash(password)))
         cursor.execute("Insert into real.users (user_name,user_email,user_password) values (?, ?, ?)", (name,email,generate_password_hash(password)))
         cursor.execute("Select * from real.users where user_email= ?", (email))

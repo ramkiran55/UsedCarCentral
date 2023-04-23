@@ -1,6 +1,6 @@
 import pyodbc
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from connection import connection_uri
 from flask import Flask, render_template, request, redirect, url_for
 from models import db_models
@@ -31,12 +31,14 @@ def load_user(user_id):
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
+        session["email"] = email
         password = request.form.get('password')
         print(email,password)
         user =User.get_by_email(email)
         print(email,password)
         
         if user and User.check_password(user,password):
+            session["email"] = email
             login_user(user)
             return redirect(url_for('home'))
         else:
@@ -78,6 +80,7 @@ def register():
         # print(user)
         print('gng to register')
         user=User.register(name,email,password)
+        session["email"] = email
         login_user(user)
         return redirect(url_for('home'))
     else:
@@ -115,23 +118,40 @@ def getCarListings():
 
 #     return render_template("index.html")
 
-@UsedCarCentral.route("/getmycarlistings")
+@UsedCarCentral.route("/getmycarlistings", methods = ['GET', 'POST'])
 def getUserCarListings():
-    my_car_listings = []
-    user = None
-    try:
-        user = current_user.username
-        print('user')
-        
-        con = connection_uri()
-        cursor = con.cursor()
-        stored_proc_name = 'real.ReadCarListings'
-        # params = []
-        # result_set = cursor.execute(f"EXEC {stored_proc_name}", params).fetchall()
-    except:
-        return render_template("login.html", error = 'Please login to your account to check you car listings!')
-    
-    return render_template("mylisting.html", car_listings = my_car_listings)
+    if request.method == 'GET':
+        my_car_listings = []
+        try:
+            #print(session)
+            user=current_user
+            #print(user.id)
+            con = connection_uri()
+            cursor = con.cursor()
+            print('user is ', user.name, user.id)
+            cursor.execute("EXEC real.ReadUserCarListings "+str(user.id))
+            print('Here')
+            result_set = cursor.fetchall()
+            for row in result_set:
+                #print('inside') 
+                my_car_listings.append(
+                                        {
+                                            "model": row[0]
+                                            , "manufacturer": row[1]
+                                            , "price": row[2]
+                                            , "size": row[3]
+                                            , "condition": row[4]
+                                            , "city": row[5]
+                                            , "state": row[6]
+                                            , "date": row[7] 
+                                        }
+                                    )
+            return render_template("mylisting.html", car_listings = my_car_listings)
+        except:
+            error = 'Please login to your account to check your car listings!'
+            return render_template("login.html", error = error)
+    else:
+        return redirect('/login')
 
 car_listing_data = {}
 @UsedCarCentral.route("/addcarlisting", methods = ['GET', 'POST'])

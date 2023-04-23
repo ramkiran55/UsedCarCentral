@@ -1,11 +1,11 @@
 USE UsedCarCentral
 GO
-
+--DROP PROCEDURE real.ReadUserCarListings;
 CREATE PROCEDURE real.ReadUserCarListings
     @UserID INT
 AS
 BEGIN
-    SELECT TOP 10
+    SELECT
         mc.CarModel,
         mc.Manufacturer,
         cl.Price,
@@ -33,3 +33,5 @@ BEGIN
     ORDER BY
         cl.PostedDate DESC;
 END
+
+--EXEC real.ReadUserCarListings 3
