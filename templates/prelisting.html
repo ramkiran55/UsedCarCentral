@@ -10,8 +10,8 @@
     <header>
       <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central</h1>
       <nav>
-        <a href="#">My Listings</a>
-        <a href="#">Listings</a>
+        <a href="{{ url_for('getmycarlistings') }}"><strong>My Listings</strong></a>
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listing</strong></a>
         <a href="#">Logout</a>
       </nav>
     </header>
