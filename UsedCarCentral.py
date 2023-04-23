@@ -75,26 +75,30 @@ def register():
     else:
         return render_template('register.html')
 
-# @UsedCarCentral.route("/")
-# def main():
-#     # car_listings = []
-#     # con = connection_uri()
-#     # cursor = con.cursor()
-#     # cursor.execute("SELECT TOP (5) * FROM real.CarListings")
-#     # for row in cursor.fetchall():
-#     #     #print(row) 
-#     #     car_listings.append(
-#     #                             {
-#     #                                 "id": row[0]
-#     #                                 , "ListingID": row[1]
-#     #                                 , "CarID": row[2]
-#     #                                 , "LocationID": row[3]
-#     #                                 , "Price": row[4]
-#     #                                 , "PostedDate": row[5]
-#     #                                 , "ListingURL": row[6] 
-#     #                             }
-#     #                         )
-#     # return render_template("CarsList.html", car_listings = car_listings)
+@UsedCarCentral.route("/getcarlistings")
+def getCarListings():
+    car_listings = []
+    con = connection_uri()
+    cursor = con.cursor()
+    stored_proc_name = 'real.ReadCarListings'
+    params = []
+    result_set = cursor.execute(f"EXEC {stored_proc_name}", params).fetchall()
+    for row in result_set:
+        print(row)
+    # for row in cursor.fetchall():
+    #     #print(row) 
+    #     car_listings.append(
+    #                             {
+    #                                 "id": row[0]
+    #                                 , "ListingID": row[1]
+    #                                 , "CarID": row[2]
+    #                                 , "LocationID": row[3]
+    #                                 , "Price": row[4]
+    #                                 , "PostedDate": row[5]
+    #                                 , "ListingURL": row[6] 
+    #                             }
+    #                         )
+    return render_template("CarsList.html", car_listings = car_listings)
 
 #     return render_template("index.html")
 

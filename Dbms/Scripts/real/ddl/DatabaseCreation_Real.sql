@@ -135,6 +135,7 @@ CREATE TABLE real.CarsMasterData -- Revanth Posina (rposina)
     CarID INT IDENTITY(100,1) PRIMARY KEY,
 	MasterID BIGINT,
     Manufacturer NVARCHAR(50),
+	CarModel NVARCHAR(50),
     ModelYear SMALLINT,
     CylinderCount NVARCHAR(50),
     FuelType NVARCHAR(50),
@@ -185,9 +186,9 @@ CREATE TABLE real.CarListings -- Ram Kiran Devireddy (radevir)
 	FOREIGN KEY (MasterID) REFERENCES real.UsedCarsMasterData(MasterID)
 );
 
-INSERT INTO real.CarsMasterData (MasterID, Manufacturer, ModelYear, CylinderCount, FuelType, TransmissionType, CarSize -- Revanth Posina (rposina)
+INSERT INTO real.CarsMasterData (MasterID, Manufacturer, ModelYear, CarModel,CylinderCount, FuelType, TransmissionType, CarSize -- Revanth Posina (rposina)
 			, CarBodyType, CarColor, VehicleIdentificationNum, DriveType)
-SELECT MasterID, Manufacturer, ModelYear, CylinderCount, FuelType, TransmissionType, CarSize, CarBodyType, CarColor
+SELECT MasterID, Manufacturer, ModelYear, CarModel, CylinderCount, FuelType, TransmissionType, CarSize, CarBodyType, CarColor
 		, VehicleIdentificationNum, DriveType
 FROM real.UsedCarsMasterData;
 
