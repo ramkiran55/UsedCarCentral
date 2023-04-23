@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central - <strong>Listings Page</strong></h1>
+      <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central - <strong>MyListings Page</strong></h1>
       <nav>
         <a href="prelisting.html"><strong>PreListing</strong></a>
         <a href="#">Logout</a>
@@ -20,27 +20,29 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Id</th>
-            <th scope="col">ListingID</th>
-            <th scope="col">CarID</th>
-            <th scope="col">LocationID</th>
-            <th scope="col">Price</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Manufacturer</th>
+            <th scope="col">CarSize</th>
+            <th scope="col">CarCondition</th>
+            <th scope="col">City</th>
+            <th scope="col">StateCode</th>
             <th scope="col">PostedDate</th>
-            <th scope="col">ListingURL</th>
+            <th scope="col">Price</th>
           </tr>
         </thead>
         <tbody>
-          <!--{% for car_listing in car_listings %} --> 
+          {% for car_listing in car_listings %}
           <tr>
-            <td>{{ car_listing.id }}</td>
-            <td>{{ car_listing.ListingID }}</td>
-            <td>{{ car_listing.CarID }}</td>
-            <td>{{ car_listing.LocationID }}</td>
-            <td>{{ car_listing.Price }}</td>
-            <td>{{ car_listing.PostedDate }}</td>
-            <td>{{ car_listing.ListingURL }}</td>
+            <td>{{ car_listing.model }}</td>
+            <td>{{ car_listing.manufacturer }}</td>
+            <td>{{ car_listing.size }}</td>
+            <td>{{ car_listing.condition }}</td>
+            <td>{{ car_listing.city }}</td>
+            <td>{{ car_listing.state }}</td>
+            <td>{{ car_listing.date }}</td>
+            <td>{{ car_listing.price }}</td>
           </tr>
-            <!--{% endfor %}--> 
+            {% endfor %}
         </tbody>
       </table>
       <div class="add-listing">
