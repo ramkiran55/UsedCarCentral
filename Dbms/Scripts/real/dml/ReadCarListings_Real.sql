@@ -1,6 +1,6 @@
 USE UsedCarCentral
 GO
-
+DROP PROCEDURE real.ReadCarListings;
 CREATE PROCEDURE real.ReadCarListings
 AS
 BEGIN

@@ -93,8 +93,11 @@ def getCarListings():
     stored_proc_name = 'real.ReadCarListings'
     params = []
     result_set = cursor.execute(f"EXEC {stored_proc_name}", params).fetchall()
-    for row in result_set[:10]:
-        print('inside') 
+    # i = 0
+    # for row in result_set:
+    #     print(row)
+    for row in result_set:
+        #print('inside') 
         car_listings.append(
                                 {
                                     "model": row[0]
@@ -107,6 +110,8 @@ def getCarListings():
                                     , "date": row[7] 
                                 }
                             )
+        # i += 1
+        # print('next ', i)
     return render_template("listing.html", car_listings = car_listings)
 
 #     return render_template("index.html")
