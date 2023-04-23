@@ -62,7 +62,6 @@ def landing():
 
 @UsedCarCentral.route('/register', methods=['GET', 'POST'])
 def register():
-
     print(request.method)
     if request.method == 'POST':
         print("inPost")
@@ -115,6 +114,24 @@ def getCarListings():
     return render_template("listing.html", car_listings = car_listings)
 
 #     return render_template("index.html")
+
+@UsedCarCentral.route("/getmycarlistings")
+def getUserCarListings():
+    my_car_listings = []
+    user = None
+    try:
+        user = current_user.username
+        print('user')
+        
+        con = connection_uri()
+        cursor = con.cursor()
+        stored_proc_name = 'real.ReadCarListings'
+        # params = []
+        # result_set = cursor.execute(f"EXEC {stored_proc_name}", params).fetchall()
+    except:
+        return render_template("login.html", error = 'Please login to your account to check you car listings!')
+    
+    return render_template("mylisting.html", car_listings = my_car_listings)
 
 car_listing_data = {}
 @UsedCarCentral.route("/addcarlisting", methods = ['GET', 'POST'])
