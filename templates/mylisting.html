@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Used Car Central</title>
+    <link rel="stylesheet" href="landing.css" />
+    <link rel="stylesheet" href="mylisting.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central - <strong>Listings Page</strong></h1>
+      <nav>
+        <a href="prelisting.html"><strong>PreListing</strong></a>
+        <a href="#">Logout</a>
+      </nav>
+    </header>
+
+    <div class="page-content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">ListingID</th>
+            <th scope="col">CarID</th>
+            <th scope="col">LocationID</th>
+            <th scope="col">Price</th>
+            <th scope="col">PostedDate</th>
+            <th scope="col">ListingURL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--{% for car_listing in car_listings %} --> 
+          <tr>
+            <td>{{ car_listing.id }}</td>
+            <td>{{ car_listing.ListingID }}</td>
+            <td>{{ car_listing.CarID }}</td>
+            <td>{{ car_listing.LocationID }}</td>
+            <td>{{ car_listing.Price }}</td>
+            <td>{{ car_listing.PostedDate }}</td>
+            <td>{{ car_listing.ListingURL }}</td>
+          </tr>
+            <!--{% endfor %}--> 
+        </tbody>
+      </table>
+      <div class="add-listing">
+        <a class="btn btn-primary" href="addcarlisting"><strong>Add New Car</strong></a>
+      </div>
+    </div>
+
+    <footer>
+      <p>Contact us</p>
+      <p>Email: usedcarcentral@gmail.com</p>
+      <p>Phone: +1 812 8XX XXX</p>
+    </footer>
+
+  </body>
+</html>
