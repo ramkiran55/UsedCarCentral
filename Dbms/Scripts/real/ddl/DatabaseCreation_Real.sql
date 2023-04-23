@@ -225,10 +225,18 @@ INNER JOIN real.Locations l ON ucmd.MasterID = l.MasterID
 INNER JOIN real.CarListings cl ON ucmd.MasterID = cl.MasterID;
 
 -- Users table creation
+drop table real.users;
 create table real.users(
-user_id int identity,
-user_name nvarchar(max),
-user_email nvarchar(max),
-user_password nvarchar(max)
+	user_id int identity PRIMARY KEY,
+	user_name nvarchar(max),
+	user_email nvarchar(max),
+	user_password nvarchar(max)
 )
 
+CREATE TABLE real.UserCarListings (
+    UserCarListingID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT,
+    CarListingID INT,
+    FOREIGN KEY (UserID) REFERENCES real.users(user_id),
+    FOREIGN KEY (CarListingID) REFERENCES real.CarListings(ListingID)
+);
