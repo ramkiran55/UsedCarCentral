@@ -11,7 +11,8 @@
     <header>
       <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central - <strong>MyListings Page</strong></h1>
       <nav>
-        <a href="prelisting.html"><strong>Home</strong></a>
+        <a href="{{ url_for('home') }}"><strong>Home</strong></a>
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listing</strong></a>
         <a href="{{ url_for('logout') }}">Logout</a>
       </nav>
     </header>
