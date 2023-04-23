@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Used Car Central</title>
-    <link rel="stylesheet" href="landing.css" />
-    <link rel="stylesheet" href="mylisting.css" />
+    <link rel="stylesheet" href="../static/styles/landing.css" />
+    <link rel="stylesheet" href="../static/styles/mylisting.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
   <body>
@@ -12,7 +12,7 @@
       <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Used Car Central - <strong>MyListings Page</strong></h1>
       <nav>
         <a href="{{ url_for('home') }}"><strong>Home</strong></a>
-        <a href="{{ url_for('getCarListings') }}"><strong>Listing</strong></a>
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listings</strong></a>
         <a href="{{ url_for('logout') }}">Logout</a>
       </nav>
     </header>

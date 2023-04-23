@@ -89,7 +89,7 @@ def register():
         return render_template('register.html')
 
 @UsedCarCentral.route("/getcarlistings")
-def getCarListings():
+def getcarlistings():
     car_listings = []
     con = connection_uri()
     cursor = con.cursor()
@@ -120,7 +120,7 @@ def getCarListings():
 #     return render_template("index.html")
 
 @UsedCarCentral.route("/getmycarlistings", methods = ['GET', 'POST'])
-def getUserCarListings():
+def getmycarlistings():
     if request.method == 'GET':
         my_car_listings = []
         try:
