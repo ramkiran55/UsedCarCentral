@@ -86,7 +86,7 @@ def register():
         return render_template('register.html')
 
 @UsedCarCentral.route("/getcarlistings")
-def getCarListings():
+def getcarlistings():
     car_listings = []
     con = connection_uri()
     cursor = con.cursor()
