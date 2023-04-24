@@ -19,7 +19,7 @@ BEGIN
         FROM real.CarListings 
         WHERE ListingID = @ListingID;
         SELECT @MasterID, @CarID;
-        
+
         DELETE FROM real.UserCarListings 
         WHERE UserID = @UserID
         AND CarListingID = @ListingID;
