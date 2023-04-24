@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <title>Car Details</title>
+    <link rel="stylesheet" href="AddCarDetails.css">
+    <link rel="stylesheet" crossorigin="anonymous"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<script crossorigin="anonymous"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" >
+	</script>
+
+</head>
+<header>
+    <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Enter Car Condition Details</h1>
+    <nav>
+        <a href="{{ url_for('getmycarlistings') }}"><strong>My Listings</strong></a>
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listings</strong></a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+<body>
+    <form action="" method = "POST">
+        <!-- MasterID --><!--<div class="form-group row"> 
+          <label for="id">Id</label> 
+          <input type="text" class="form-control" name="id" id="id">
+        </div> -->
+        
+        <div class="form-group row">
+            <p><strong>Please Enter Your Car Condition Details Below</strong></p>
+            <label for="car-condition">Specify Condition</label><!-- Manufacturer -->
+            <!--<input type="text" class="form-control" name="carCondition" id="carCondition">-->
+            <select name = 'carCondition' id = 'carCondition'>
+                <option value="other">--Please select a car condition--</option>
+                <option value="excellent">Excellent</option>
+                <option value="new">New</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="salvage">Salvage</option>
+                <option value="like new">Like New</option>
+            </select>
+        </div>
+        <div class="form-group row"><!--  ModelYear  -->
+            <label for="odometer-reading">Odometer Reading</label>
+            <input type="number" step="0.01" class="form-control" name="odometerReading" id="odometerReading">
+        </div>
+        <div class="form-group row"> <!--FuelType-->
+            <label for="car-status">Status</label>
+            <!--<input type="text" class="form-control" name="fuelType" id="fuelType"> -->
+            <select name = 'carStatus' id = 'carStatus'>
+                <option value="other">--Please select the status of the Car--</option>
+                <option value="parts Only">Parts Only</option>
+                <option value="rebuilt">Rebuilt</option>
+                <option value="clean">Clean</option>
+                <option value="lien">Lien</option>
+                <option value="salvage">Salvage</option>
+                <option value="missing">Missing Parts</option>
+            </select>
+        </div>
+        <div class="form-group row"> <!--CarBodyType-->
+            <label for="image-url">Paste the Image URL of your vehicle</label>
+            <input type="url" class="form-control" name="imageUrl" id="imageUrl">
+        </div>
+        <div class="form-group row"> <!--CarColor-->
+            <label for="car-desc">Describe your vehicle</label>
+            <input type="text" class="form-control" name="carDesc" id="carDesc" minlength="5" maxlength="800" size="10">
+        </div>
+        <button type="btnAdd" class="btn btn-primary">Next</button>
+        <a href="/" class="btn btn-primary">Cancel</a>
+      </form>
+      <footer>
+        <p>Contact us</p>
+        <p>Email: usedcarcentral@gmail.com</p>
+        <p>Phone: +1 812 8XX XXX</p>
+      </footer>
+</body>
