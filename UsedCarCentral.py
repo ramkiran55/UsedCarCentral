@@ -145,15 +145,17 @@ def getmycarlistings():
                                             , "city": row[5]
                                             , "state": row[6]
                                             , "date": row[7] 
+                                            , "listingid" : row[8]
                                         }
                                     )
             return render_template("mylisting.html", car_listings = my_car_listings)
         except:
             error = 'Please login to your account to check your car listings!'
+            print(error)
             render_template("login.html", error = error)
             return redirect('/login')
     else:
-        return redirect('/login')
+        return redirect('/getmycarlistings')
 
 
 @UsedCarCentral.route("/success")
@@ -233,5 +235,30 @@ def addLocationDetails():
             return render_template('landing.html', message = "Car Listing Creating Success!")
         return redirect('/')
     
+@UsedCarCentral.route("/update", methods = ['GET', 'POST'])
+def updateCarListing():
+    pass
+    
+@UsedCarCentral.route('/delete/<int:listingid>', methods=['GET'])
+def deleteCarListing(listingid):
+    user = current_user
+    print(listingid)
+    conn = connection_uri()
+    cursor = conn.cursor()
+    out = 0
+    #cursor.execute("EXEC real.DeleteCarListing "+str(user.id)+","+str(listingid))
+    # Call the stored procedure
+    user_id = int(user.id)
+    listing_id = listingid
+    cursor.execute("{CALL real.DeleteCarListing(?, ?)}", user_id, listing_id)
+
+    print(out)
+    #result_set = cursor.fetchall()
+    #print(result_set)
+    return redirect('/getmycarlistings')
+    
+    
 if __name__ == "__main__":
     UsedCarCentral.run()
+    
+    

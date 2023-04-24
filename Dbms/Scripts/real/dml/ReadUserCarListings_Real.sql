@@ -13,7 +13,8 @@ BEGIN
         cd.CarCondition,
         l.City,
         l.StateCode,
-        cl.PostedDate
+        cl.PostedDate,
+        cl.ListingID
     FROM
         real.UserCarListings ucl
         JOIN real.CarListings cl ON ucl.CarListingID = cl.ListingID

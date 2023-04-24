@@ -42,8 +42,8 @@
             <td>{{ car_listing.state }}</td>
             <td>{{ car_listing.date }}</td>
             <td>{{ car_listing.price }}</td>
-            <td><a class="btn btn-primary" href="/update/{{ car_listing.id }}"><strong>Update</strong></a></td>
-            <td><a class="btn btn-primary" href="/delete/{{ car_listing.id }}"><strong>Delete</strong></a></td>
+            <td><a class="btn btn-primary" href="/update/{{ car_listing.listingid }}"><strong>Update</strong></a></td>
+            <td><a class="btn btn-primary" href="/delete/{{ car_listing.listingid }}"><strong>Delete</strong></a></td>
           </tr>
           {% endfor %}
         </tbody>
