@@ -33,7 +33,7 @@ BEGIN
         SET NOCOUNT ON;
         DECLARE @id INT;
         DECLARE @newId INT;
-
+        PRINT 'real.CreateCarsMasterData: started with real.CreateCarsMasterData'
         SELECT @id = MAX(CarID) FROM real.CarsMasterData;
         INSERT INTO real.CarsMasterData (
             MasterID,
@@ -60,7 +60,8 @@ BEGIN
             @VehicleIdentificationNum,
             @DriveType
         );
-        SELECT MAX(CarID) AS newId FROM real.CarsMasterData;
+        
+        SELECT @newId = MAX(CarID) FROM real.CarsMasterData;
         IF @id = @newId
         BEGIN
             set @out = 1;
@@ -70,6 +71,7 @@ BEGIN
         END
         ELSE
         BEGIN
+        PRINT 'real.CreateCarsMasterData: Started real.CreateCarDetails'
             EXEC @out = real.CreateCarDetails
                 @CarID = @newId
                 , @CarCondition = @CarCondition
@@ -77,13 +79,15 @@ BEGIN
                 , @CarStatus = @CarStatus
                 , @ImageURL = @ImageURL
                 , @CarDescription = @CarDescription
+                , @out = 0
             IF @out = 1
             BEGIN
                 SET NOCOUNT OFF;
+                PRINT 'real.CreateCarsMasterData: Error in real.CreateCarDetails'
                 ROLLBACK;
                 RETURN @out;
             END
-
+            PRINT 'real.CreateCarsMasterData: Started real.CreateLocations'
             EXEC @out = real.CreateLocations
                 @MasterID = @MasterID
                 , @CarID = @newId
@@ -95,21 +99,25 @@ BEGIN
                 , @Price = @Price
                 , @PostedDate = @PostedDate
                 , @ListingURL = @ListingURL
+                , @out = 0
             IF @out = 1
             BEGIN
                 SET NOCOUNT OFF;
+                PRINT 'real.CreateCarsMasterData: Error in real.CreateLocations'
                 ROLLBACK;
                 RETURN @out;
             END            
         END
         --set @out = 0;
-        COMMIT;
+        --COMMIT;
         SET NOCOUNT OFF;
         RETURN @out;
     END TRY
     BEGIN CATCH
         set @out = 1;
         SET NOCOUNT OFF;
+        PRINT 'real.CreateCarsMasterData: Enocuntered Some Exception'+ ERROR_MESSAGE();
+        PRINT ERROR_LINE();
         ROLLBACK;
         RETURN @out;
     END CATCH

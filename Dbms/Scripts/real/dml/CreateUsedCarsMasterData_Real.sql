@@ -33,6 +33,8 @@ AS
 BEGIN
     BEGIN TRY
         SET NOCOUNT ON;
+
+        PRINT 'real.CreateUsedCarsMasterData: Starting real.CreateUsedCarsMasterData...';
         SET @out = 0;
         DECLARE @id INT;
         DECLARE @newId INT;
@@ -89,7 +91,7 @@ BEGIN
             @Longitude, 
             @PostedDate
         );
-
+        PRINT 'real.CreateUsedCarsMasterData: Inserted Into real.UsedCarsMasterData ';
         SELECT @newId = MAX(MasterID) FROM real.UsedCarsMasterData;
 
         IF @newId = @id
@@ -99,6 +101,7 @@ BEGIN
             ROLLBACK;
             RETURN @out;
         END
+        PRINT 'real.CreateUsedCarsMasterData: Calling real.CreateCarsMasterData'
         EXEC @out = real.CreateCarsMasterData 
             @MasterID = @newId
             , @Manufacturer = @Manufacturer
@@ -122,20 +125,27 @@ BEGIN
             , @Latitude = @Latitude
             , @Longitude = @Longitude
             , @CraigsCityURL = @CraigsCityURL
+            , @PostedDate = @PostedDate
+            , @ListingURL = @ListingURL
+            , @out = 0
+        
         IF @out = 1
         BEGIN
+            PRINT 'real.CreateUsedCarsMasterData: Error in real.CreateCarsMasterData'
             SET NOCOUNT OFF;
             ROLLBACK;
             RETURN @out;
         END
-
+        PRINT 'real.CreateUsedCarsMasterData: Done with real.CreateCarsMasterData'
         SET NOCOUNT OFF;
-        COMMIT;
+        --COMMIT;
         RETURN @out;
     END TRY
 
     BEGIN CATCH
         SET @out = 1;
+        PRINT 'real.CreateUsedCarsMasterData: Encountered Exception'+ ERROR_MESSAGE();
+        PRINT ERROR_LINE();
         SET NOCOUNT OFF;
         ROLLBACK;
         RETURN @out;

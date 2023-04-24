@@ -21,19 +21,22 @@ BEGIN
         SET @out = 0;
         DECLARE @id INT;
         DECLARE @newId INT;
-
+        PRINT 'real.CreateLocations: Started real.CreateLocations'
         SELECT @id = MAX(LocationID) FROM real.Locations;
         -- Query
         INSERT INTO real.Locations (MasterID, City, StateCode, Latitude, Longitude, CraigsCityURL) 
         VALUES (@MasterID, @City, @StateCode, @Latitude, @Longitude, @CraigsCityURL);
+        PRINT 'real.CreateLocations: Insereted'
         SELECT @newId = MAX(LocationID) FROM real.Locations;
         IF @id = @newId
         BEGIN
             ROLLBACK;
+            PRINT 'real.CreateLocations: Error in Insertion'
             SET NOCOUNT OFF;
             SET @out = 1;
             RETURN @out;
         END
+        PRINT 'real.CreateLocations: Started real.CreateListings'
         EXEC @out = real.CreateListings
             @MasterID = @MasterID
             , @CarID = @CarID
@@ -41,13 +44,16 @@ BEGIN
             , @Price = @Price
             , @PostedDate = @PostedDate
             , @ListingURL = @ListingURL
+            , @out = 0
 
-        COMMIT;
+        --COMMIT;
         SET NOCOUNT OFF;
         RETURN @out;
     END TRY
     BEGIN CATCH
         SET @out = 1;
+		PRINT 'real.CreateLocations: Encountered Exception'+ ERROR_MESSAGE();
+        PRINT ERROR_LINE();
         SET NOCOUNT OFF;
         ROLLBACK;
         RETURN @out;
