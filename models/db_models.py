@@ -21,7 +21,7 @@ def insertCarListing(car_listing_data):
     ListingURL = car_listing_data["carCondition"]
     City = car_listing_data["city"]
     CraigsCityURL = car_listing_data["craigsCityUrl"]
-    Price = car_listing_data["carCondition"]
+    Price = car_listing_data["price"]
     ModelYear = car_listing_data["modelYear"]
     Manufacturer = car_listing_data["manufacturer"]
     CarModel = car_listing_data["model"]
@@ -41,15 +41,15 @@ def insertCarListing(car_listing_data):
     StateCode = car_listing_data["state"]
     Latitude = car_listing_data["latitude"]
     Longitude = car_listing_data["logitude"]
-    PostedDate = sql_datetime
+    #PostedDate = sql_datetime
     # set up output parameter
     out = 0
 
     # execute stored procedure
-    cursor.execute("{CALL real.CreateUsedCarsMasterData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
+    cursor.execute("{CALL real.CreateUsedCarsMasterData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
                 (ListingURL, City, CraigsCityURL, Price, ModelYear, Manufacturer, CarModel, CarCondition, CylinderCount, FuelType, OdometerReading,
                     CarStatus, TransmissionType, VehicleIdentificationNum, DriveType, CarSize, CarBodyType, CarColor, ImageURL, CarDescription,
-                    StateCode, Latitude, Longitude, PostedDate, out))
+                    StateCode, Latitude, Longitude, out))
 
     # commit the transaction
     con.commit()

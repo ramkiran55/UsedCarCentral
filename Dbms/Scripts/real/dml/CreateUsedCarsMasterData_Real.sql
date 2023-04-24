@@ -26,13 +26,15 @@ CREATE PROCEDURE real.CreateUsedCarsMasterData
         @StateCode NVARCHAR(50),
         @Latitude FLOAT,
         @Longitude FLOAT,
-        @PostedDate DATETIME,
+        --@PostedDate DATETIME,
         @out INT OUTPUT
     )
 AS
 BEGIN
     BEGIN TRY
         SET NOCOUNT ON;
+        DECLARE @PostedDate DATETIME;
+        SET @PostedDate = GETDATE();
 
         PRINT 'real.CreateUsedCarsMasterData: Starting real.CreateUsedCarsMasterData...';
         SET @out = 0;
