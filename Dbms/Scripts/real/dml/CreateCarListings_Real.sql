@@ -1,6 +1,7 @@
 USE UsedCarCentral
 GO
 
+
 CREATE PROCEDURE real.CreateListings
     @MasterID BIGINT,
     @CarID INT,

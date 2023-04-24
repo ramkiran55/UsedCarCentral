@@ -9,6 +9,9 @@ CREATE PROCEDURE real.CreateLocations
     @Latitude FLOAT,
     @Longitude FLOAT,
     @CraigsCityURL NVARCHAR(500),
+    @Price FLOAT,
+    @PostedDate DATETIME,
+    @ListingURL NVARCHAR(500),
     @out INT OUTPUT
 
 AS

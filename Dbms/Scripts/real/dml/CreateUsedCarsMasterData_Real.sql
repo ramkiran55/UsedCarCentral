@@ -27,7 +27,7 @@ CREATE PROCEDURE real.CreateUsedCarsMasterData
         @Latitude FLOAT,
         @Longitude FLOAT,
         @PostedDate DATETIME,
-        @out0 INT OUTPUT
+        @out INT OUTPUT
     )
 AS
 BEGIN
@@ -104,6 +104,7 @@ BEGIN
             , @Manufacturer = @Manufacturer
             , @ModelYear = @ModelYear
             , @CylinderCount = @CylinderCount
+            , @Price = @Price
             , @FuelType = @FuelType
             , @TransmissionType = @TransmissionType
             , @CarSize = @CarSize

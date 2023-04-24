@@ -6,6 +6,7 @@ CREATE PROCEDURE real.CreateCarsMasterData
     @Manufacturer NVARCHAR(50),
     @ModelYear SMALLINT,
     @CylinderCount NVARCHAR(50),
+    @Price FLOAT,
     @FuelType NVARCHAR(50),
     @TransmissionType NVARCHAR(50),
     @CarSize NVARCHAR(50),
@@ -23,6 +24,8 @@ CREATE PROCEDURE real.CreateCarsMasterData
     @Latitude FLOAT,
     @Longitude FLOAT,
     @CraigsCityURL NVARCHAR(500),
+    @PostedDate DATETIME,
+    @ListingURL NVARCHAR(500),
     @out INT OUTPUT
 AS
 BEGIN
@@ -89,6 +92,9 @@ BEGIN
                 , @Latitude = @Latitude
                 , @Longitude = @Longitude
                 , @CraigsCityURL = @CraigsCityURL
+                , @Price = @Price
+                , @PostedDate = @PostedDate
+                , @ListingURL = @ListingURL
             IF @out = 1
             BEGIN
                 SET NOCOUNT OFF;
