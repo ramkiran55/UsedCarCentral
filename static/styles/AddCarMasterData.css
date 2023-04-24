@@ -117,6 +117,7 @@ form a {
 }
 .form-group p {
     text-align: center;
+    font-size: 24px;
   }
 /* Applying a blur effect to the background image */
 body:before {
