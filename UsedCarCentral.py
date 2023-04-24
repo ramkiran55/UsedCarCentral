@@ -224,9 +224,13 @@ def addLocationDetails():
         car_listing_data["latitude"] = float(request.form["latitude"])
         car_listing_data["logitude"] = float(request.form["logitude"])
         car_listing_data["craigsCityUrl"] = car_listing_data["city"] + '-craigslist.org'
+        user = current_user
+        car_listing_data["userid"] = user.id
         print(car_listing_data)
         out = db_models.insertCarListing(car_listing_data)
-        print(out)
+        #print(out)
+        if out == 0:
+            return render_template('landing.html', message = "Car Listing Creating Success!")
         return redirect('/')
     
 if __name__ == "__main__":

@@ -41,21 +41,22 @@ def insertCarListing(car_listing_data):
     StateCode = car_listing_data["state"]
     Latitude = car_listing_data["latitude"]
     Longitude = car_listing_data["logitude"]
+    userid = car_listing_data["userid"]
     #PostedDate = sql_datetime
     # set up output parameter
     out = 0
 
     # execute stored procedure
-    cursor.execute("{CALL real.CreateUsedCarsMasterData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
+    cursor.execute("{CALL real.CreateUsedCarsMasterData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
                 (ListingURL, City, CraigsCityURL, Price, ModelYear, Manufacturer, CarModel, CarCondition, CylinderCount, FuelType, OdometerReading,
                     CarStatus, TransmissionType, VehicleIdentificationNum, DriveType, CarSize, CarBodyType, CarColor, ImageURL, CarDescription,
-                    StateCode, Latitude, Longitude, out))
+                    StateCode, Latitude, Longitude, userid, out))
 
     # commit the transaction
     con.commit()
 
     # get output parameter value
-    print("Output parameter value:", out)
+    #print("Output parameter value:", out)
 
     # close cursor and connection
     cursor.close()

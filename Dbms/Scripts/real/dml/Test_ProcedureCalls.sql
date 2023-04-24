@@ -3,7 +3,7 @@ DROP PROCEDURE real.CreateCarsMasterData;
 DROP PROCEDURE real.CreateCarDetails;
 DROP PROCEDURE real.CreateLocations;
 DROP PROCEDURE real.CreateListings;
-
+DROP PROCEDURE real.CreateUserCarListings;
 
 SELECT TOP 1 * FROM real.UsedCarsMasterData ORDER BY PostedDate DESC;
 DELETE FROM real.UsedCarsMasterData WHERE MasterID = 1010338;

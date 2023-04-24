@@ -27,6 +27,7 @@ CREATE PROCEDURE real.CreateUsedCarsMasterData
         @Latitude FLOAT,
         @Longitude FLOAT,
         --@PostedDate DATETIME,
+        @UserID INT,
         @out INT OUTPUT
     )
 AS
@@ -129,6 +130,7 @@ BEGIN
             , @CraigsCityURL = @CraigsCityURL
             , @PostedDate = @PostedDate
             , @ListingURL = @ListingURL
+            , @UserID = @UserID
             , @out = 0
         
         IF @out = 1

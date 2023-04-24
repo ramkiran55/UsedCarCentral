@@ -9,6 +9,7 @@ CREATE PROCEDURE real.CreateListings
     @Price FLOAT,
     @PostedDate DATETIME,
     @ListingURL NVARCHAR(500),
+    @UserID INT,
     @out INT OUTPUT
 
 AS
@@ -33,6 +34,11 @@ BEGIN
             SET @out = 1;
             RETURN @out;
         END
+
+        EXEC @out = real.CreateUserCarListings
+            @UserID = @UserID
+            , @CarListingID = @newId
+            , @out = 0
         --COMMIT;
         SET NOCOUNT OFF;
         RETURN @out;

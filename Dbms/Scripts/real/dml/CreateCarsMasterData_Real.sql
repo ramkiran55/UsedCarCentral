@@ -26,6 +26,7 @@ CREATE PROCEDURE real.CreateCarsMasterData
     @CraigsCityURL NVARCHAR(500),
     @PostedDate DATETIME,
     @ListingURL NVARCHAR(500),
+    @UserID INT,
     @out INT OUTPUT
 AS
 BEGIN
@@ -99,6 +100,7 @@ BEGIN
                 , @Price = @Price
                 , @PostedDate = @PostedDate
                 , @ListingURL = @ListingURL
+                , @UserID = @UserID
                 , @out = 0
             IF @out = 1
             BEGIN

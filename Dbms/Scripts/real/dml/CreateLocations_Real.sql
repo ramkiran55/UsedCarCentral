@@ -12,6 +12,7 @@ CREATE PROCEDURE real.CreateLocations
     @Price FLOAT,
     @PostedDate DATETIME,
     @ListingURL NVARCHAR(500),
+    @UserID INT,
     @out INT OUTPUT
 
 AS
@@ -44,6 +45,7 @@ BEGIN
             , @Price = @Price
             , @PostedDate = @PostedDate
             , @ListingURL = @ListingURL
+            , @UserID = @UserID
             , @out = 0
 
         --COMMIT;
