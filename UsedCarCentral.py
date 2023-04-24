@@ -150,10 +150,15 @@ def getmycarlistings():
             return render_template("mylisting.html", car_listings = my_car_listings)
         except:
             error = 'Please login to your account to check your car listings!'
-            return render_template("login.html", error = error)
+            render_template("login.html", error = error)
+            return redirect('/login')
     else:
         return redirect('/login')
 
+
+@UsedCarCentral.route("/success")
+def Success():
+    return 'Success!'
 car_listing_data = {}
 @UsedCarCentral.route("/addcarlisting", methods = ['GET', 'POST'])
 def addCarListing():
@@ -181,6 +186,7 @@ def addCarListing():
         # print('carColor',carColor)
         # print('vehicleIdentificationNum',vehicleIdentificationNum)
         # print('driveType',driveType)
+        car_listing_data["model"] = str(request.form["model"])
         car_listing_data["manufacturer"] = manufacturer
         car_listing_data["modelYear"] = modelYear
         car_listing_data["cylinderCount"] = cylinderCount
@@ -191,6 +197,7 @@ def addCarListing():
         car_listing_data["carColor"] = carColor
         car_listing_data["vehicleIdentificationNum"] = vehicleIdentificationNum
         car_listing_data["driveType"] = driveType
+        car_listing_data["price"] = float(request.form["price"])
         # print(car_listing_data)
         return redirect('/addcardetails')
         
@@ -216,9 +223,10 @@ def addLocationDetails():
         car_listing_data["state"] = str(request.form["state"])
         car_listing_data["latitude"] = float(request.form["latitude"])
         car_listing_data["logitude"] = float(request.form["logitude"])
-        car_listing_data["craigsCityUrl"] = str(request.form["craigsCityUrl"])
-        # print(car_listing_data)
-        db_models.insertCarListing(car_listing_data)
+        car_listing_data["craigsCityUrl"] = car_listing_data["city"] + '-craigslist.org'
+        print(car_listing_data)
+        out = db_models.insertCarListing(car_listing_data)
+        print(out)
         return redirect('/')
     
 if __name__ == "__main__":

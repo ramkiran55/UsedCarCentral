@@ -27,8 +27,12 @@
         
         <div class="form-group row">
             <p><strong>Enter the Car Details Below</strong></p>
-            <label for="manufacturer">Maker and Model</label><!-- Manufacturer -->
+            <label for="manufacturer">Maker</label><!-- Manufacturer -->
             <input type="text" class="form-control" name="manufacturer" id="manufacturer">
+        </div>
+        <div class="form-group row">
+            <label for="model">Model</label><!-- model -->
+            <input type="text" class="form-control" name="model" id="model">
         </div>
         <div class="form-group row"><!--  ModelYear  -->
             <label for="make-year">Make Year</label>
@@ -90,6 +94,10 @@
                 <option value="fwd">Front-wheel Drive</option>
                 <option value="rwd">Rear-wheel Drive</option>
             </select>
+        </div>
+        <div class="form-group row"> <!--VehicleIdentificationNum-->
+            <label for="price">Price</label>
+            <input type="number" step="0.01" class="form-control" name="price" id="price">
         </div>
         <button type="btnAdd" href="addcardetails" class="btn btn-primary">Next</button>
         <a href="/" class="btn btn-primary">Cancel</a>
