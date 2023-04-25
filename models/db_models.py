@@ -62,3 +62,12 @@ def insertCarListing(car_listing_data):
     cursor.close()
     con.close()
     return out
+
+def updateCarListings(id, feild, val):
+    con = connection.connection_uri()
+    cursor = con.cursor()
+    cursor.execute("EXEC real.UpdateCarPrice "+str(id)+", "+str(val))
+    con.commit()
+    cursor.close()
+    con.close()
+    return

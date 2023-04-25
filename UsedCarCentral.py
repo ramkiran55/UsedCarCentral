@@ -167,7 +167,9 @@ def filterForUpdates(car_id):
         print(car_id)
         updateField = str(request.form["updateField"])
         updateValue = str(request.form["updatedValue"])
+        
         print (updateField,updateValue)
+        db_models.updateCarListings(car_id, updateField, updateValue)
         return redirect('/getmycarlistings')
     else:
         print("Updates Get")
