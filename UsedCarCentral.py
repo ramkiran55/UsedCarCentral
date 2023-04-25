@@ -157,12 +157,28 @@ def getmycarlistings():
             return redirect('/login')
     else:
         return redirect('/getmycarlistings')
+    
+@UsedCarCentral.route("/filterForUpdates/<int:car_id>", methods = ['GET','POST'])
+def filterForUpdates(car_id):
+    print("updates")
+    print(car_id)
+    if request.method == "POST":
+        print("updates post")
+        print(car_id)
+        updateField = str(request.form["updateField"])
+        updateValue = str(request.form["updatedValue"])
+        print (updateField,updateValue)
+        return redirect('/getmycarlistings')
+    else:
+        print("Updates Get")
+        return render_template("FilterForUpdates.html")
 
 
 @UsedCarCentral.route("/success")
 def Success():
     return 'Success!'
 car_listing_data = {}
+
 @UsedCarCentral.route("/addcarlisting", methods = ['GET', 'POST'])
 def addCarListing():
     if request.method == 'GET':
@@ -235,22 +251,7 @@ def addLocationDetails():
         if out == 0:
             return redirect('/getmycarlistings')
         return redirect('/')
-    
-@UsedCarCentral.route("/update/<int:listingid>", methods = ['GET'])
-def updateCarListing(listingid, price):
 
-    print(listingid)
-    conn = connection_uri()
-    cursor = conn.cursor()
-    out = 0
-    # EXEC real.UpdateCarPrice 10345, 33333
-    #cursor.execute("EXEC real.DeleteCarListing "+str(user.id)+","+str(listingid))
-    # Call the stored procedure
-    price = int(price)
-    listing_id = listingid
-    statement = "EXEC real.UpdateCarPrice "+ str(listing_id)+", "+str(price)
-    cursor.execute(statement)
-    return redirect('/getmycarlistings')
     
 @UsedCarCentral.route('/delete/<int:listingid>', methods=['GET'])
 def deleteCarListing(listingid):

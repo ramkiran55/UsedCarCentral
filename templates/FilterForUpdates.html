@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <title>Car Details</title>
+    <link rel="stylesheet" href="../static/styles/AddCarDetails.css">
+    <link rel="stylesheet" crossorigin="anonymous"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<script crossorigin="anonymous"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" >
+	</script>
+
+</head>
+<header>
+    <h1><i class="fas fa-car" style="--fa-secondary-color: #ff0000;"></i> Enter Car Condition Details</h1>
+    <nav>
+        <a href="{{ url_for('getmycarlistings') }}"><strong>My Listings</strong></a>
+        <a href="{{ url_for('getcarlistings') }}"><strong>Listings</strong></a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+<body>
+    
+  
+    <form action="" method = "POST">
+        <!-- MasterID --><!--<div class="form-group row"> 
+          <label for="id">Id</label> 
+          <input type="text" class="form-control" name="id" id="id">
+        </div> -->        
+        <div class="form-group row">
+            <p><strong>Please select the field you would like to update for the selected car.</strong></p>
+            <label for="update-field">Specify field to update</label>
+            <select name = 'updateField' id = 'updateField'>
+                <option value="none" selected disabled hidden>Select an Option</option>
+                <option value="carColor">Car Color</option>
+                <option value="carCondition">Car Condition</option>
+                <option value="carDescription">Car Description</option>
+                <option value="city">City</option>
+                <option value="modelYear">Model Year</option>
+                <option value="odometerReading">Odometer Reading</option>
+                <option value="price">Price</option>
+                <option value="stateCode">State Code</option>
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="updatedValue">Enter the new value for the above selected field.</label>
+            <input type="text" step="0.01" class="form-control" name="updatedValue" id="updatedValue">
+        </div>
+        <button type="btnAdd" class="btn btn-primary" >Update</button>
+        <!-- <a class="btn btn-primary" href="filterForUpdates"><strong>Update</strong></a> -->
+        <a href="/" class="btn btn-primary">Cancel</a>
+      </form>
+      <footer>
+        <p>Contact us</p>
+        <p>Email: usedcarcentral@gmail.com</p>
+        <p>Phone: +1 812 8XX XXX</p>
+      </footer>
+</body>
