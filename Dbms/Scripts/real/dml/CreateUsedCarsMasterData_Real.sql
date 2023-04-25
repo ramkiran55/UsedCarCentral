@@ -131,6 +131,7 @@ BEGIN
             , @PostedDate = @PostedDate
             , @ListingURL = @ListingURL
             , @UserID = @UserID
+            , @CarModel = @CarModel
             , @out = 0
         
         IF @out = 1

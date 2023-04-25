@@ -148,6 +148,7 @@ def getmycarlistings():
                                             , "listingid" : row[8]
                                         }
                                     )
+            #print(my_car_listings)
             return render_template("mylisting.html", car_listings = my_car_listings)
         except:
             error = 'Please login to your account to check your car listings!'
@@ -200,7 +201,7 @@ def addCarListing():
         car_listing_data["vehicleIdentificationNum"] = vehicleIdentificationNum
         car_listing_data["driveType"] = driveType
         car_listing_data["price"] = float(request.form["price"])
-        # print(car_listing_data)
+        #print(car_listing_data)
         return redirect('/addcardetails')
         
 @UsedCarCentral.route("/addcardetails", methods = ['GET', 'POST'])
@@ -232,7 +233,7 @@ def addLocationDetails():
         out = db_models.insertCarListing(car_listing_data)
         #print(out)
         if out == 0:
-            return render_template('landing.html', message = "Car Listing Creating Success!")
+            return redirect('/getmycarlistings')
         return redirect('/')
     
 @UsedCarCentral.route("/update", methods = ['GET', 'POST'])
@@ -250,8 +251,9 @@ def deleteCarListing(listingid):
     # Call the stored procedure
     user_id = int(user.id)
     listing_id = listingid
-    cursor.execute("{CALL real.DeleteCarListing(?, ?)}", user_id, listing_id)
-
+    #cursor.execute("{CALL real.DeleteCarListing(?, ?)}", user_id, listing_id)
+    statement = "EXEC real.DeleteCarListing "+ str(user_id)+", "+str(listing_id)
+    cursor.execute(statement)
     print(out)
     #result_set = cursor.fetchall()
     #print(result_set)

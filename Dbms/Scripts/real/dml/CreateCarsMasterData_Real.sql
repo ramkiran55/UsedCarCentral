@@ -27,6 +27,7 @@ CREATE PROCEDURE real.CreateCarsMasterData
     @PostedDate DATETIME,
     @ListingURL NVARCHAR(500),
     @UserID INT,
+    @CarModel NVARCHAR(50),
     @out INT OUTPUT
 AS
 BEGIN
@@ -41,6 +42,7 @@ BEGIN
             Manufacturer,
             ModelYear,
             CylinderCount,
+            CarModel,
             FuelType,
             TransmissionType,
             CarSize,
@@ -53,6 +55,7 @@ BEGIN
             @Manufacturer,
             @ModelYear,
             @CylinderCount,
+            @CarModel,
             @FuelType,
             @TransmissionType,
             @CarSize,

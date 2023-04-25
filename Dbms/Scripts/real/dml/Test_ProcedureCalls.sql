@@ -63,3 +63,8 @@ EXEC @out = real.CreateUsedCarsMasterData
      @out = 0
 
 SELECT @out;
+
+SELECT TOP 1 * FROM real.UserCarListings ORDER BY UserCarListingID DESC;
+SELECT * FROM real.CarListings WHERE ListingID = 7487;
+
+select * from real.UserCarListings where CarListingID = 7487;
