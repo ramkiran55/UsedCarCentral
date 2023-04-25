@@ -236,9 +236,21 @@ def addLocationDetails():
             return redirect('/getmycarlistings')
         return redirect('/')
     
-@UsedCarCentral.route("/update", methods = ['GET', 'POST'])
-def updateCarListing():
-    pass
+@UsedCarCentral.route("/update/<int:listingid>", methods = ['GET'])
+def updateCarListing(listingid, price):
+
+    print(listingid)
+    conn = connection_uri()
+    cursor = conn.cursor()
+    out = 0
+    # EXEC real.UpdateCarPrice 10345, 33333
+    #cursor.execute("EXEC real.DeleteCarListing "+str(user.id)+","+str(listingid))
+    # Call the stored procedure
+    price = int(price)
+    listing_id = listingid
+    statement = "EXEC real.UpdateCarPrice "+ str(listing_id)+", "+str(price)
+    cursor.execute(statement)
+    return redirect('/getmycarlistings')
     
 @UsedCarCentral.route('/delete/<int:listingid>', methods=['GET'])
 def deleteCarListing(listingid):
@@ -252,8 +264,14 @@ def deleteCarListing(listingid):
     user_id = int(user.id)
     listing_id = listingid
     #cursor.execute("{CALL real.DeleteCarListing(?, ?)}", user_id, listing_id)
+    print('Excecuting')
     statement = "EXEC real.DeleteCarListing "+ str(user_id)+", "+str(listing_id)
+    #statement = "Delete from  "
+    print('Excecuted..')
     cursor.execute(statement)
+    cursor.commit()
+    cursor.close()
+    conn.close()
     print(out)
     #result_set = cursor.fetchall()
     #print(result_set)
