@@ -1,0 +1,5 @@
+pyodbc
+flask
+flask_login
+flask_sqlalchemy
+werkzeug
