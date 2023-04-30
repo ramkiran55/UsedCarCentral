@@ -201,7 +201,7 @@ def filterForUpdates(listing_id):
             , "listingid": row[7]
             }
         print(user_car_listings)
-        return render_template("UpdateCarDetails.html", car_details = user_car_listings)
+        return render_template("FilterForUpdates.html", car_details = user_car_listings)
         #return render_template("FilterForUpdates.html")
 
 

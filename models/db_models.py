@@ -78,7 +78,7 @@ def updateCarListings(updated_listings, listing_id):
         , listing_id
     ]
     print(params)
-    cursor.execute("{CALL real.UpdateCarListing(?, ?, ?, ?, ?, ?, ?, ?)}", params=params)
+    cursor.execute("{CALL real.UpdateCarListing(?, ?, ?, ?, ?, ?, ?, ?)}", params)
     con.commit()
     cursor.close()
     con.close()
