@@ -158,22 +158,48 @@ def getmycarlistings():
     else:
         return redirect('/getmycarlistings')
     
-@UsedCarCentral.route("/filterForUpdates/<int:car_id>", methods = ['GET','POST'])
+@UsedCarCentral.route("/filterForUpdates/<int:listing_id>", methods = ['GET','POST'])
 def filterForUpdates(car_id):
     print("updates")
     print(car_id)
     if request.method == "POST":
         print("updates post")
-        print(car_id)
-        updateField = str(request.form["updateField"])
-        updateValue = str(request.form["updatedValue"])
+        #print(car_id)
+        listing_id = request.form()
         
-        print (updateField,updateValue)
-        db_models.updateCarListings(car_id, updateField, updateValue)
+        #db_models.updateCarListings(car_id, updateField, updateValue)
+        #return redirect('/getmycarlistings')
         return redirect('/getmycarlistings')
     else:
         print("Updates Get")
-        return render_template("FilterForUpdates.html")
+        user_car_listings = []
+        #print (updateField,updateValue)
+        user=current_user
+        #print(user.id)
+        con = connection_uri()
+        cursor = con.cursor()
+        print('user is ', user.name, user.id)
+        cursor.execute("EXEC real.ReadUserCarListings "+str(user.id))
+        print('Here')
+        result_set = cursor.fetchall()
+        for row in result_set:
+            #print(row)
+            user_car_listings.append(
+                                        {
+                                            "model": row[0]
+                                            , "manufacturer": row[1]
+                                            , "price": row[2]
+                                            , "size": row[3]
+                                            , "condition": row[4]
+                                            , "city": row[5]
+                                            , "state": row[6]
+                                            , "date": row[7] 
+                                            , "listingid" : row[8]
+                                        }
+                                    )
+            #print(my_car_listings)
+        return render_template("UpdateCarDetails.html", car_details = user_car_listings)
+        #return render_template("FilterForUpdates.html")
 
 
 @UsedCarCentral.route("/success")

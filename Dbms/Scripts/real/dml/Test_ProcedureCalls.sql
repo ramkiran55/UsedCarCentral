@@ -65,6 +65,8 @@ EXEC @out = real.CreateUsedCarsMasterData
 SELECT @out;
 
 SELECT TOP 1 * FROM real.UserCarListings ORDER BY UserCarListingID DESC;
-SELECT * FROM real.CarListings WHERE ListingID = 7487;
+SELECT * FROM real.CarListings WHERE ListingID = 7483;
 
 select * from real.UserCarListings where CarListingID = 7487;
+
+EXEC real.UpdateCarListing 'BMW Benz', 'Good', 'RDK', 33333, 'Full Size SUV', 'Seatle', 'WA', 7483;
