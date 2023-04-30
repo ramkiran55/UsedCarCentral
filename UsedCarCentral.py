@@ -159,20 +159,27 @@ def getmycarlistings():
         return redirect('/getmycarlistings')
     
 @UsedCarCentral.route("/filterForUpdates/<int:listing_id>", methods = ['GET','POST'])
-def filterForUpdates(car_id):
+def filterForUpdates(listing_id):
     print("updates")
-    print(car_id)
+    print(listing_id)
     if request.method == "POST":
         print("updates post")
+        updated_listings = {}
         #print(car_id)
-        listing_id = request.form()
-        
-        #db_models.updateCarListings(car_id, updateField, updateValue)
+        updated_listings['model'] = request.form.get('model')
+        updated_listings['manufacturer'] = request.form.get('manufacturer')
+        updated_listings['price'] = request.form.get('price')
+        updated_listings['size'] = request.form.get('carSize')
+        updated_listings['city'] = request.form.get('city')
+        updated_listings['state'] = request.form.get('state')
+        updated_listings['condition'] = request.form.get('carCondition')
+        print(updated_listings)
+        db_models.updateCarListings(updated_listings, listing_id)
         #return redirect('/getmycarlistings')
         return redirect('/getmycarlistings')
     else:
         print("Updates Get")
-        user_car_listings = []
+        user_car_listings = {}
         #print (updateField,updateValue)
         user=current_user
         #print(user.id)
@@ -181,23 +188,19 @@ def filterForUpdates(car_id):
         print('user is ', user.name, user.id)
         cursor.execute("EXEC real.ReadUserCarListings "+str(user.id))
         print('Here')
-        result_set = cursor.fetchall()
-        for row in result_set:
-            #print(row)
-            user_car_listings.append(
-                                        {
-                                            "model": row[0]
-                                            , "manufacturer": row[1]
-                                            , "price": row[2]
-                                            , "size": row[3]
-                                            , "condition": row[4]
-                                            , "city": row[5]
-                                            , "state": row[6]
-                                            , "date": row[7] 
-                                            , "listingid" : row[8]
-                                        }
-                                    )
-            #print(my_car_listings)
+        row = cursor.fetchone()
+        print(row)
+        user_car_listings = {
+            "model": row[0]
+            , "manufacturer": row[1]
+            , "price": row[2]
+            , "size": row[3]
+            , "condition": row[4]
+            , "city": row[5]
+            , "state": row[6]
+            , "listingid": row[7]
+            }
+        print(user_car_listings)
         return render_template("UpdateCarDetails.html", car_details = user_car_listings)
         #return render_template("FilterForUpdates.html")
 

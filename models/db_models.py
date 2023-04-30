@@ -63,10 +63,22 @@ def insertCarListing(car_listing_data):
     con.close()
     return out
 
-def updateCarListings(id, feild, val):
+def updateCarListings(updated_listings, listing_id):
     con = connection.connection_uri()
     cursor = con.cursor()
-    cursor.execute("EXEC real.UpdateCarPrice "+str(id)+", "+str(val))
+    #cursor.execute("EXEC real.UpdateCarPrice "+str(id)+", "+str(val))
+    params = [
+        updated_listings['model']
+        , updated_listings['condition']
+        , updated_listings['manufacturer']
+        , updated_listings['price']
+        , updated_listings['size']
+        , updated_listings['city']
+        , updated_listings['state']
+        , listing_id
+    ]
+    print(params)
+    cursor.execute("{CALL real.UpdateCarListing(?, ?, ?, ?, ?, ?, ?, ?)}", params=params)
     con.commit()
     cursor.close()
     con.close()
