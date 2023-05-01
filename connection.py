@@ -4,6 +4,8 @@ from app import app
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.engine import URL
+import pymssql
+
 
 from sqlalchemy.sql import func
 connection_url = ""
@@ -28,5 +30,8 @@ def connection_uri():
     u = 'adtstudent'
     p = 'R00tR00t'
     cstr = 'DRIVER={SQL Server};SERVER='+s+';DATABASE='+d+';UID='+u+';PWD='+ p
-    conn = pyodbc.connect(cstr)
+    # constr='server='+s+', user='+u+', password='+p+', database='+d
+    # conn = pyodbc.connect(cstr)
+    # return conn
+    conn = pymssql.connect(server=s, user=u, password=p, database=d)
     return conn

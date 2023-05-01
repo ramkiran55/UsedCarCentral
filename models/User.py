@@ -16,7 +16,9 @@ class User(UserMixin):
     def get_by_email(user_email):
         con = connection_uri()
         cursor = con.cursor()
-        cursor.execute('SELECT * FROM real.users where user_email= ? ',(user_email))
+        # cursor.execute('SELECT * FROM real.users where user_email=  @user_email', {'user_email': user_email})
+        cursor.execute('DECLARE @user_email VARCHAR(255); SET @user_email = %s; SELECT * FROM real.users where user_email= @user_email', (user_email,))
+
         user_details=cursor.fetchone()
         cursor.close()
         print('In get by email')
@@ -33,7 +35,7 @@ class User(UserMixin):
     def get_by_id(user_id):
         con = connection_uri()
         cursor = con.cursor()
-        cursor.execute('SELECT * FROM real.users where user_id= ? ',(user_id))
+        cursor.execute('SELECT * FROM real.users where user_id= %s ',(user_id))
         user_details=cursor.fetchone()
         cursor.close()
         print('In get by email')
@@ -53,8 +55,8 @@ class User(UserMixin):
         print(name,email,password,generate_password_hash(password))
         print(generate_password_hash('root'))
         # cursor.execute("EXEC Create_New_User @uname=?, @email=?, @pass=?", (name,email,generate_password_hash(password)))
-        cursor.execute("Insert into real.users (user_name,user_email,user_password) values (?, ?, ?)", (name,email,generate_password_hash(password)))
-        cursor.execute("Select * from real.users where user_email= ?", (email))
+        cursor.execute("Insert into real.users (user_name,user_email,user_password) values (%s, %s, %s)", (name,email,generate_password_hash(password)))
+        cursor.execute("Select * from real.users where user_email= %s", (email))
         print('In register')
         user_details=cursor.fetchone()
         cursor.close()
