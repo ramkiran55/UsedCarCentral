@@ -186,7 +186,7 @@ def filterForUpdates(listing_id):
         con = connection_uri()
         cursor = con.cursor()
         print('user is ', user.name, user.id)
-        cursor.execute("EXEC real.ReadUserCarListings "+str(user.id))
+        cursor.execute("EXEC real.ReadUserCarListing "+str(user.id)+", "+str(listing_id))
         print('Here')
         row = cursor.fetchone()
         print(row)
