@@ -93,9 +93,11 @@ def getcarlistings():
     car_listings = []
     con = connection_uri()
     cursor = con.cursor()
-    stored_proc_name = 'real.ReadCarListings'
-    params = []
-    result_set = cursor.execute(f"EXEC {stored_proc_name}", params).fetchall()
+    # stored_proc_name = 'real.ReadCarListings'
+    # params = []
+    cursor.execute("EXEC real.ReadCarListings ")
+    result_set = cursor.fetchall()
+
     # i = 0
     # for row in result_set:
     #     print(row)
@@ -301,8 +303,8 @@ def deleteCarListing(listingid):
     #statement = "Delete from  "
     print('Excecuted..')
     cursor.execute(statement)
-    cursor.commit()
     cursor.close()
+    conn.commit()
     conn.close()
     print(out)
     #result_set = cursor.fetchall()
@@ -311,6 +313,6 @@ def deleteCarListing(listingid):
     
     
 if __name__ == "__main__":
-    UsedCarCentral.run()
+    UsedCarCentral.run(host='0.0.0.0')
     
     

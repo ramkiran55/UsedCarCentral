@@ -46,11 +46,18 @@ def insertCarListing(car_listing_data):
     # set up output parameter
     out = 0
 
-    # execute stored procedure
-    cursor.execute("{CALL real.CreateUsedCarsMasterData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
-                (ListingURL, City, CraigsCityURL, Price, ModelYear, Manufacturer, CarModel, CarCondition, CylinderCount, FuelType, OdometerReading,
-                    CarStatus, TransmissionType, VehicleIdentificationNum, DriveType, CarSize, CarBodyType, CarColor, ImageURL, CarDescription,
-                    StateCode, Latitude, Longitude, userid, out))
+    # # execute stored procedure
+    # cursor.execute("CALL real.CreateUsedCarsMasterData(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+    #             (ListingURL, City, CraigsCityURL, Price, ModelYear, Manufacturer, CarModel, CarCondition, CylinderCount, FuelType, OdometerReading,
+    #                 CarStatus, TransmissionType, VehicleIdentificationNum, DriveType, CarSize, CarBodyType, CarColor, ImageURL, CarDescription,
+    #                 StateCode, Latitude, Longitude, userid, out))
+    
+
+    params = (ListingURL, City, CraigsCityURL, Price, ModelYear, Manufacturer, CarModel, CarCondition, CylinderCount, FuelType, OdometerReading,
+               CarStatus, TransmissionType, VehicleIdentificationNum, DriveType, CarSize, CarBodyType, CarColor, ImageURL, CarDescription, StateCode, Latitude, Longitude, userid, out)
+    cursor.execute('EXEC real.CreateUsedCarsMasterData @ListingURL=%s, @City=%s, @CraigsCityURL=%s, @Price=%s, @ModelYear=%s, @Manufacturer=%s, @CarModel=%s, @CarCondition=%s, @CylinderCount=%s, @FuelType=%s, @OdometerReading=%s, @CarStatus=%s, @TransmissionType=%s, @VehicleIdentificationNum=%s, @DriveType=%s, @CarSize=%s, @CarBodyType=%s, @CarColor=%s, @ImageURL=%s, @CarDescription=%s, @StateCode=%s, @Latitude=%s, @Longitude=%s, @UserID=%s, @out=%s', params)
+
+
 
     # commit the transaction
     con.commit()
@@ -77,9 +84,23 @@ def updateCarListings(updated_listings, listing_id):
         , updated_listings['state']
         , listing_id
     ]
-    print(params)
-    cursor.execute("{CALL real.UpdateCarListing(?, ?, ?, ?, ?, ?, ?, ?)}", params)
-    con.commit()
+    print("{CALL real.UpdateCarListing(?, ?, ?, ?, ?, ?, ?, ?)}", params)
+    model=str(updated_listings['model'])
+    condition=str(updated_listings['condition'])
+    manufacture=str(updated_listings['manufacturer'])
+    price=str(updated_listings['price'])
+    size=str(updated_listings['size'])
+    city=str(updated_listings['city'])
+    state=str(updated_listings['state'])
+    # print(params)
+    # cursor.execute("CALL real.UpdateCarListing(%s, %s, %s, %s, %s, %s, %s, %s)", (model,condition,manufacture,price,size,city,state,listing_id))
+    print("EXEC real.UpdateCarListing("+model+", "+condition+", "+manufacture+", "+price+", "+size+", "+city+", "+state+", "+str(listing_id)+")") 
+    # cursor.execute("EXEC real.UpdateCarListing @CarModel="+model+", @CarCondition="+condition+", @Manufacturer="+manufacture+", @Price="+price+", @CarSize="+size+", @City="+city+", @StateCode="+state+", @ListingID="+str(listing_id))
+    cursor.execute("EXEC real.UpdateCarListing @CarModel=%s, @CarCondition=%s, @Manufacturer=%s, @Price=%s, @CarSize=%s, @City=%s, @StateCode=%s, @ListingID=%s",
+               (model, condition, manufacture, price, size, city, state, listing_id))
+
+
     cursor.close()
+    con.commit()
     con.close()
     return
